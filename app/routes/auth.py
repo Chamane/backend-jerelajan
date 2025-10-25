@@ -22,4 +22,12 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     
-    return jsonify({"message": "Kliyan anrejistre avèk siksè!"}), 201
+    just_created_user = User.query.filter_by(username=username).first()
+    
+    return jsonify({
+        "message": "Itilizatè anrejistre avèk siksè!",
+        "user": {
+            "id": just_created_user.id,
+            "username": just_created_user.username
+        }
+    }), 201
