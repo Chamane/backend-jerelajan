@@ -8,6 +8,7 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-jwt-extended = "*"
+flasgger = "*"
 
 [dev-packages]
 

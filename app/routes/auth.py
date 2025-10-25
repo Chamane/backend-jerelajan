@@ -9,6 +9,54 @@ auth_bp = Blueprint('user', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
+    """
+    Register a new user
+    ---
+    tags:
+      - Authentication
+    parameters:
+      - in: body
+        name: body
+        schema:
+          type: object
+          required:
+            - username
+            - password
+          properties:
+            username:
+              type: string
+              example: testuser
+            password:
+              type: string
+              example: "1234"
+    responses:
+      201:
+        description: User registered successfully
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Itilizatè anrejistre avèk siksè!
+            user:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                username:
+                  type: string
+                  example: testuser
+      400:
+        description: Missing or invalid data
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Non itilizatè ak modpas obligatwa!
+    """
+    
     data = request.get_json()
     
     username = data.get('username')
@@ -35,6 +83,56 @@ def register():
     
 @auth_bp.route('/login', methods=['POST']) 
 def login():
+    """
+    User login
+    ---
+    tags:
+      - Authentication
+    parameters:
+      - in: body
+        name: body
+        schema:
+          type: object
+          required:
+            - username
+            - password
+          properties:
+            username:   
+              type: string
+              example: testuser
+            password:
+              type: string
+              example: "1234"
+    responses:
+      200:
+        description: User logged in successfully      
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Koneksyon avèk siksè!
+            access_token:
+              type: string
+              example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+            user:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                username:
+                  type: string
+                  example: testuser
+      400:
+        description: Missing data
+        schema:
+          type: object
+          properties:
+            message:  
+              type: string
+              example: Non itilizatè oswa modpas ki pa kòrèk! 
+    """
     data = request.get_json()
 
     username = data.get('username')
